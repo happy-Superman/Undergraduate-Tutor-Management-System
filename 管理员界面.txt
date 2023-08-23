@@ -1,0 +1,68 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class AdminInterface extends JFrame {
+    private JButton modifyTeacherButton, modifyStudentButton, modifyTimeButton;
+
+    public AdminInterface() {
+        setTitle("管理员界面");
+        setSize(400, 300);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+
+        JLabel welcomeLabel = new JLabel("欢迎您，管理员", JLabel.CENTER);
+        add(welcomeLabel, BorderLayout.NORTH);
+
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
+
+        modifyTeacherButton = new JButton("修改教师信息");
+        modifyStudentButton = new JButton("修改学生信息");
+        modifyTimeButton = new JButton("修改系统开放时间");
+
+        // 将按钮添加到垂直Box中
+        buttonPanel.add(Box.createRigidArea(new Dimension(0, 20))); // 添加垂直间距
+        buttonPanel.add(modifyTeacherButton);
+        buttonPanel.add(Box.createRigidArea(new Dimension(0, 20))); // 添加垂直间距
+        buttonPanel.add(modifyStudentButton);
+        buttonPanel.add(Box.createRigidArea(new Dimension(0, 20))); // 添加垂直间距
+        buttonPanel.add(modifyTimeButton);
+
+        // 设置按钮居中对齐
+        modifyTeacherButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        modifyStudentButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        modifyTimeButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        add(buttonPanel, BorderLayout.CENTER);
+
+        modifyTeacherButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+ 
+            }
+        });
+
+        modifyStudentButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+ 
+            }
+        });
+
+        modifyTimeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+     
+            }
+        });
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                new AdminInterface().setVisible(true);
+            }
+        });
+    }

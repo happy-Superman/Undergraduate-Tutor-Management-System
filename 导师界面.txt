@@ -1,0 +1,60 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class TeacherInterface extends JFrame {
+    private JButton SelectStudent, MyStudent;
+
+    public TeacherInterface() {
+        setTitle("导师界面");
+        setSize(400, 300);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+
+        JLabel welcomeLabel = new JLabel("欢迎您，老师", JLabel.CENTER);
+        add(welcomeLabel, BorderLayout.NORTH);
+
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
+
+        SelectStudent = new JButton("选择学生");
+        MyStudent = new JButton("我的学生");
+
+        // 将按钮添加到垂直Box中
+        buttonPanel.add(Box.createRigidArea(new Dimension(0, 20))); // 添加垂直间距
+        buttonPanel.add(SelectStudent);
+        buttonPanel.add(Box.createRigidArea(new Dimension(0, 20))); // 添加垂直间距
+        buttonPanel.add(MyStudent);
+        buttonPanel.add(Box.createRigidArea(new Dimension(0, 20))); // 添加垂直间距
+
+        // 设置按钮居中对齐
+        SelectStudent.setAlignmentX(Component.CENTER_ALIGNMENT);
+        MyStudent.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        add(buttonPanel, BorderLayout.CENTER);
+
+        SelectStudent.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+  
+            }
+        });
+
+        MyStudent.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                new TeacherInterface().setVisible(true);
+            }
+        });
+    }
+}
+

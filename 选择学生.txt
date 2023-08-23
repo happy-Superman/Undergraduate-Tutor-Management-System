@@ -1,0 +1,95 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class SelectStudent extends JFrame {
+	private JTable table;
+	private JComboBox<String> comboBox;
+	private JButton selectButton;
+	private JButton rejectButton;
+	private JButton modifyButton;
+
+	public SelectStudent() {
+		setTitle("选择学生");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setSize(800, 600);
+
+		String[] columnNames = { "number", "name", "sex", "专业", "号码", "成绩" };
+		String a = "wan";
+		String[][] data = { { a, " ", " ", " ", " ", " " }, { " ", " ", " ", " ", " ", " ", " " },
+				{ " ", " ", " ", " ", " ", " ", " " }, { " ", " ", " ", " ", " ", " ", " " },
+				{ " ", " ", " ", " ", " ", " ", " " }, { " ", " ", " ", " ", " ", " ", " " },
+				{ " ", " ", " ", " ", " ", " ", " " }, { " ", " ", " ", " ", " ", " ", " " },
+				{ " ", " ", " ", " ", " ", " ", " " }, { " ", " ", " ", " ", " ", " ", " " },
+				{ " ", " ", " ", " ", " ", " ", " " }, { " ", " ", " ", " ", " ", " ", " " },
+				{ " ", " ", " ", " ", " ", " ", " " }, { " ", " ", " ", " ", " ", " ", " " },
+				{ " ", " ", " ", " ", " ", " ", " " }, { " ", " ", " ", " ", " ", " ", " " },
+				{ " ", " ", " ", " ", " ", " ", " " }, { " ", " ", " ", " ", " ", " ", " " },
+				{ " ", " ", " ", " ", " ", " ", " " }, { " ", " ", " ", " ", " ", " ", " " },
+				{ " ", " ", " ", " ", " ", " ", " " }, { " ", " ", " ", " ", " ", " ", " " },
+				{ " ", " ", " ", " ", " ", " ", " " }, { " ", " ", " ", " ", " ", " ", " " },
+				{ " ", " ", " ", " ", " ", " ", " " }, { " ", " ", " ", " ", " ", " ", " " },
+				{ " ", " ", " ", " ", " ", " ", " " }, { " ", " ", " ", " ", " ", " ", " " },
+				{ " ", " ", " ", " ", " ", " ", " " }, { " ", " ", " ", " ", " ", " ", " " },
+				{ " ", " ", " ", " ", " ", " ", " " }, { " ", " ", " ", " ", " ", " ", " " },
+				{ " ", " ", " ", " ", " ", " ", " " }, { " ", " ", " ", " ", " ", " ", " " },
+				{ " ", " ", " ", " ", " ", " ", " " }, { " ", " ", " ", " ", " ", " ", " " },
+				{ " ", " ", " ", " ", " ", " ", " " }, { " ", " ", " ", " ", " ", " ", " " },
+				{ " ", " ", " ", " ", " ", " ", " " }, { " ", " ", " ", " ", " ", " ", " " },
+				{ " ", " ", " ", " ", " ", " ", " " }, { " ", " ", " ", " ", " ", " ", " " },
+				{ " ", " ", " ", " ", " ", " ", " " }, { " ", " ", " ", " ", " ", " ", " " },
+				{ " ", " ", " ", " ", " ", " ", " " }, { " ", " ", " ", " ", " ", " ", " " },
+				{ " ", " ", " ", " ", " ", " ", " " }, { " ", " ", " ", " ", " ", " ", " " },
+				{ " ", " ", " ", " ", " ", " ", " " }, { " ", " ", " ", " ", " ", " ", " " },
+				{ " ", " ", " ", " ", " ", " ", " " }, { " ", " ", " ", " ", " ", " ", " " } };
+		table = new JTable(data, columnNames);
+
+		JScrollPane tableScrollPane = new JScrollPane(table);
+		tableScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		tableScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+
+		String[] options = { "王光正", "张汉卿", "储千荟", "何羽童", "黄玉草", "梁妮妮", "宋博", "邵明董", "陈德静" };
+		comboBox = new JComboBox<>(options);
+		comboBox.setPreferredSize(new Dimension(150, comboBox.getPreferredSize().height));
+
+		selectButton = new JButton("选中");
+		rejectButton = new JButton("拒绝");
+		modifyButton = new JButton("修改");
+
+		JPanel buttonPanel = new JPanel();
+		buttonPanel.add(comboBox);
+		buttonPanel.add(selectButton);
+		buttonPanel.add(rejectButton);
+		buttonPanel.add(modifyButton);
+
+		JPanel controlPanel = new JPanel();
+		controlPanel.setLayout(new BorderLayout());
+		controlPanel.add(buttonPanel, BorderLayout.NORTH);
+
+		selectButton.addActionListener(e -> handleSelectButtonClick());
+		rejectButton.addActionListener(e -> handleRejectButtonClick());
+		modifyButton.addActionListener(e -> handleModifyButtonClick());
+
+		add(tableScrollPane, BorderLayout.CENTER);
+		add(controlPanel, BorderLayout.SOUTH);
+
+		setVisible(true);
+	}
+
+	private void handleSelectButtonClick() {
+
+	}
+
+	private void handleRejectButtonClick() {
+
+	}
+
+	private void handleModifyButtonClick() {
+
+	}
+
+	public static void main(String[] args) {
+		SwingUtilities.invokeLater(() -> new SelectStudent());
+	}
+}
