@@ -16,8 +16,8 @@ public class StudentManagementGUI1 {
 }
 class stu extends JFrame{
 	private JLabel welcome=new JLabel("你好，同学");
-	private JButton teacherMessage=new JButton("导师信息");
-	private JButton notice=new JButton("通知");
+	private JButton selectTeacher=new JButton("选择导师");
+	private JButton myTeacher=new JButton("我的导师");
 	
 	public stu() {
 		super("学生界面");
@@ -28,9 +28,19 @@ class stu extends JFrame{
     	setVisible(true);
     	
     	add(welcome);
-    	add(teacherMessage);
-    	add(notice);
-    	teacherMessage.addActionListener(new ActionListener() {
+    	add(selectTeacher);
+    	add(myTeacher);
+
+    	selectTeacher.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				new StudentManagementGUI2();
+			}
+    		
+    	});
+    	myTeacher.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -39,8 +49,9 @@ class stu extends JFrame{
 			}
     		
     	});
+         
     	welcome.setBounds(168,0,110,55);
-    	teacherMessage.setBounds(100,60,200,25);
-    	notice.setBounds(100,120,200,25);
+    	selectTeacher.setBounds(100,60,200,25);
+    	myTeacher.setBounds(100,120,200,25);
 	}
 }

@@ -2,6 +2,7 @@ package stduty;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 public class teacher {
@@ -26,11 +27,13 @@ class teacherMessage extends JFrame{
     private JTextField contactField=new JTextField(20);
     private JLabel title=new JLabel("职称:");
     private JTextField titleField=new JTextField(20);
+    private JTextArea a=new JTextArea();
+	private JLabel b=new JLabel("请及时查看通知");
     
     public teacherMessage() {
-    	super("导师信息");
+    	super("我的导师");
     	setLayout(null);
-    	setSize(400,370);
+    	setSize(430,400);
     	setLocationRelativeTo(null);
     	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     	setVisible(true);
@@ -56,6 +59,9 @@ class teacherMessage extends JFrame{
     	add(title);
     	add(titleField);
     	
+    	add(a);
+    	add(b);
+    	
     	number.setBounds(50,30,100,25);
     	numberField.setBounds(120,30,200,25);
     	
@@ -76,5 +82,8 @@ class teacherMessage extends JFrame{
     	
         title.setBounds(50,210,100,25);
     	titleField.setBounds(120,210,200,25);
+    	
+    	a.setBounds(0,260,430,400);
+    	b.setBounds(0,240,100,25);
     }
 }
