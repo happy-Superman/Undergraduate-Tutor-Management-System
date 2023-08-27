@@ -2,7 +2,10 @@ package Main;
 //内部引用
 import student.welcomeStudent;
 import teacher.welcomeTeacher;
+import admin.welcomeAdmin;
 import people.*;
+
+import java.time.*;
 
 import AccessDatabase.JDBCaccess;
 import abstracts.People;
@@ -13,10 +16,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
-
-
-
-
 
 public class Login extends JFrame
 {
@@ -42,7 +41,6 @@ public class Login extends JFrame
 
     JDBCaccess db = new JDBCaccess();
 
-
     //身份类型
     String type;
 
@@ -55,6 +53,7 @@ public class Login extends JFrame
 
     Student student = new Student();
     Teacher teacher = new Teacher();
+    Admin admin = new Admin();
 
     public Login()
     {
@@ -119,14 +118,12 @@ public class Login extends JFrame
 
         this.add(textBox, BorderLayout.CENTER);
         this.add(down, BorderLayout.SOUTH);
-
-
-
     }
     public void listenMethod(){
+        /*
+        获得按钮的选项 赋值给type
+         */
         //设置选择按钮的监听
-
-
         studentButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -147,49 +144,97 @@ public class Login extends JFrame
                 type = adminButton.getText();
             }
         });
-        //添加监听器
+        /*
+        对登录按钮进行操作
+         */
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                /*
+                输错之后重新获得一个people对象
+                 */
+                people = new People() {
+                    @Override
+                    public void out() {}
+                };
 
                 //进行登录验证 根据学号 获得密码 与现在输入的进行匹配
                 people.setNumberString(accountField.getText());
                 //在数据库中获得某个学号的全部信息
                 if (type.equals("教师")){
-                    people = db.found("teacher","number",people.getNumberString());
+                        people = db.found("teacher", "number", people.getNumberString());
+                        /*
+                        如果没找到 则表示账号不存在
+                         */
+                        if(people == null){
+                            accountField.setText(null);
+                            passwordField.setText(null);
+                        }
                 }
                 else if(type.equals("学生")){
                     people = db.found("student","number",people.getNumberString());
+                    /*
+                        如果没找到 则表示账号不存在
+                         */
+                    if(people == null){
+                        accountField.setText(null);
+                        passwordField.setText(null);
+                    }
                 }
                 else if(type.equals("管理员")){
                     people = db.found("admin","number",people.getNumberString());
+                    /*
+                        如果没找到 则表示账号不存在
+                         */
+                    if(people == null){
+                        accountField.setText(null);
+                        passwordField.setText(null);
+                    }
                 }
-
-                if(passwordField.getText().equals(people.getPassword())){
-                    //登录成功 根据身份进入到不同的界面
-                    if (type.equals("教师")){
-                        teacher = (Teacher)db.found("teacher","number",accountField.getText());
-                        new welcomeTeacher(teacher);
-
-                    }
-                    else if(type.equals("学生")){
-                        student = (Student)db.found("student","number",accountField.getText());
-                        new welcomeStudent(student);
-                    }
-                    else if(type.equals("管理员")){
-//                        admin = (Admin)db.found("admin","number",accountField.getText());
-//                        new welcomeAdmin(admin);
+                /*
+                登录成功的标准 用户存在并且密码正确
+                 */
+                if(people != null) {
+                    if (passwordField.getText().equals(people.getPassword())) {
+                        //登录成功 根据身份进入到不同的界面
+                        if (type.equals("教师")) {
+                            teacher = (Teacher) db.found("teacher", "number", accountField.getText());
+                            /*
+                            首先对系统开放的时间进行验证
+                             */
+                            Time time = new Time();
+                            if (time.getNowDate().compareTo(time.getBeginDate()) < 0) {
+                                JOptionPane.showMessageDialog(null, "系统还未开放", "错误", JOptionPane.ERROR_MESSAGE);
+                            } else if (time.getNowDate().compareTo(time.getEndDate()) > 0) {
+                                JOptionPane.showMessageDialog(null, "系统已经结束", "错误", JOptionPane.ERROR_MESSAGE);
+                            } else {
+                                new welcomeTeacher(teacher);
+                            }
+                        } else if (type.equals("学生")) {
+                            student = (Student) db.found("student", "number", accountField.getText());
+                            /*
+                            首先对系统开放的时间进行验证
+                             */
+                            Time time = new Time();
+                            if (time.getNowDate().compareTo(time.getBeginDate()) < 0) {
+                                JOptionPane.showMessageDialog(null, "系统还未开放", "错误", JOptionPane.ERROR_MESSAGE);
+                            } else if (time.getNowDate().compareTo(time.getEndDate()) > 0) {
+                                JOptionPane.showMessageDialog(null, "系统已经结束", "错误", JOptionPane.ERROR_MESSAGE);
+                            } else {
+                                new welcomeStudent(student);
+                            }
+                        } else if (type.equals("管理员")) {
+                            admin = (Admin) db.found("admin", "number", accountField.getText());
+                            new welcomeAdmin(admin);
+                        }
                     }
                 }
                 else{
-                    //登录失败
-//                    弹出提示
+                    //登录失败 弹出提示
                     JOptionPane.showMessageDialog(null,"账号或密码错误","错误",JOptionPane.ERROR_MESSAGE);
                 }
-
             }
         });
-//        this.dispose();
     }
 
 }

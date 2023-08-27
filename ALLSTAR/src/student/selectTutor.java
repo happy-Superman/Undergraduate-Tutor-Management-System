@@ -45,7 +45,7 @@ public class selectTutor extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(800, 600);
 
-        tableModel = new DefaultTableModel(new Object[]{"number","name","sex","研究方向","办公地址","联系方式","职称","已有学生数","最高学生数"}, 0);
+        tableModel = new DefaultTableModel(new Object[]{"number","name","sex","研究方向","办公地址","联系方式","职称","已申请学生数","最高学生数"}, 0);
         table = new JTable(tableModel);
         table.getColumnModel().getColumn(0).setCellEditor(new DefaultCellEditor(new JCheckBox()));
         JScrollPane scrollPane = new JScrollPane(table);
@@ -159,14 +159,7 @@ public class selectTutor extends JFrame {
 
     }
 
-
-
 }
-
-
-
-
-
 
 /*
 state 0 进入选择导师
@@ -174,13 +167,7 @@ state 0 进入选择导师
         ， 2 选择界面 点击过确认键 老师正在审核 这个确认按钮冻结
 pendingTutor  导师的工号
  */
-//
-//public class selectTutor {
-//    String selectedTeacher;
-//    JDBCaccess db;
-//    int state;
-//
-//    public selectTutor(){
+
 //        //关于数量问题 采用导入到界面列表时进行判断 如果学生数大于最大数 则不显示
 //
 ////      学生确认选择某位老师的按钮
@@ -190,59 +177,9 @@ pendingTutor  导师的工号
 ////        首先在数据库中该学生的状态中读取
 ////        如果state=2 则在此界面 但是无法点击确认按钮
 ////        如果老师选择了他 则把状态改成1  如果拒绝了则改为状态0
-//        try {
-//            db = new JDBCaccess();
-////            accounts = db.getAllAccounts();
-////            这里的db连接到数据库 然后调用里面的方法即可
-//        }
-//        catch(Exception e) {
-//            e.printStackTrace();
-//        }
+
 //
 //        //学号在登录时就有
 //        //正常选导师    在学生表中 根据学号查询state
 //        //学号在登录界面的文本框中获得
 //        state = db.findState("Student",number);
-//
-//        //在下拉列表中获得信息  获得选中的老师姓名
-//        teacherBox.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                selectedTeacher = (String) comboBox.getSelectedItem();
-//            }
-//        });
-//
-//        //状态0 正常进行导师选择
-//        if(state == 0){
-//            comfirmButton.setEnabled(true);
-//            comfirmButton.addActionListener(new ActionListener(){
-//                public void actionPerformed(ActionEvent e){
-//                    teacherName = selectedTeacher;  //在前面的下拉列表中获得
-//                    //根据老师的姓名获得老师的工号
-//                    teacherNumber = db.findTeacherNumber(teacherName);
-//                    //把学生的导师待选数据改为老师的工号
-//                    db.changePendingTutor(studentNumber,teacherNumber);
-//                    //把学生的状态设置为2 冻结确认按钮
-//                    db.changeState(studentNumber,2);  //修改该同学的state为2 冻结按钮
-//                    comfirmButton.setEnabled(false);
-//                }
-//            });
-//        }
-//        //冻结按钮
-//        else if(state == 2){
-//            comfirmButton.setEnabled(false);
-//        }
-//
-//        //修改信息的按钮
-//        changeButton.addActionListener(new ActionListener(){
-//            public void actionPerformed(ActionEvent e){
-//                   new studentMessage();
-//            }
-//        });
-//
-//
-//    }
-//}
-//
-//
-//

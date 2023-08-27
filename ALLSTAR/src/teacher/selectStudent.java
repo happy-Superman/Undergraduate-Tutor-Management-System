@@ -108,7 +108,7 @@ public class selectStudent extends JFrame {
     }
 
     public void addStudent(Student student) {
-        tableModel.addRow(new Object[]{false, student.getNumberString(), student.getName(),student.getSex(), student.getSubject(), student.getPassword(), student.getScore()});
+        tableModel.addRow(new Object[]{false, student.getNumberString(), student.getName(),student.getSex(), student.getSubject(), student.getPhone(), student.getScore()});
     }
 
 }

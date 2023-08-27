@@ -1,13 +1,35 @@
-package teacher;
+package admin;
+
 
 import AccessDatabase.JDBCaccess;
-import people.*;
+import people.Student;
+import people.Teacher;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class teacherMessage extends JFrame {
+
+
+
+
+public class modifyTeacher extends JFrame {
+
+    //    public static void main(String[] args) {
+//        //数据库读取学生是否有导师状态
+//
+//        string name = A.findStudentState();
+//        int haveTutor;
+//        haveTutor = 0;
+//        //如果有进入一种界面
+//        if(haveTutor == 1){
+//            new myTutor();
+//        }
+////      如果没有进入导师选择界面
+//        else{
+//            new selectTutor();
+//        }
+//    }
     private JLabel name = new JLabel("姓名：");
     private JTextField nameField = new JTextField(20);
     private JLabel number = new JLabel("工号：");
@@ -24,12 +46,14 @@ public class teacherMessage extends JFrame {
     private JTextField officeField = new JTextField(20);
 
     private JButton confirmButton = new JButton("确认修改");
+    private JButton numberButton = new JButton("确认");
 
     //连接数据库 更新数据
     JDBCaccess teacherdb = new JDBCaccess();
 
+    Teacher teacher = new Teacher();
 
-    public teacherMessage(Teacher teacher) {
+    public modifyTeacher(){
         super("修改导师信息");
         setLayout(null);
         setSize(400, 370);
@@ -54,6 +78,7 @@ public class teacherMessage extends JFrame {
         add(officeField);
 
         add(confirmButton);
+        add(numberButton);
 
         //还需要在数据库中读取到下列的初始信息
         //然后在文本框设置初始值
@@ -64,6 +89,7 @@ public class teacherMessage extends JFrame {
 
         number.setBounds(50, 30, 100, 25);
         numberField.setBounds(120, 30, 200, 25);
+        numberButton.setBounds(300,30,100,25);
 
 
         major.setBounds(50, 60, 100, 25);
@@ -87,18 +113,26 @@ public class teacherMessage extends JFrame {
 
         confirmButton.setBounds(100, 210, 100, 25);
 
-        nameField.setText(teacher.getName());
-        nameField.setEditable(false); // 设置文本框不可编辑
-        numberField.setText(teacher.getNumberString());
-        numberField.setEditable(false); // 设置文本框不可编辑
-        majorField.setText(teacher.getSubject());
-        majorField.setEditable(false); // 设置文本框不可编辑
+        numberButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                teacher = (Teacher) teacherdb.found("teacher","number",numberField.getText());
+
+                nameField.setText(teacher.getName());
+
+                numberField.setText(teacher.getNumberString());
+
+                majorField.setText(teacher.getSubject());
+
+                passwordField.setText(teacher.getPassword());
+                phoneField.setText(teacher.getPhone());
+                scoreField.setText(teacher.getProfessional());
+                officeField.setText(teacher.getAddress());
+            }
+        });
 
 
-        passwordField.setText(teacher.getPassword());
-        phoneField.setText(teacher.getPhone());
-        scoreField.setText(teacher.getProfessional());
-        officeField.setText(teacher.getAddress());
+
 
         confirmButton.addActionListener(new ActionListener() {
 
@@ -108,21 +142,29 @@ public class teacherMessage extends JFrame {
 
                 //提取文本框的内容 修改到数据库中
                 //如果密码不同 则对数据库进行修改
+                String newName = nameField.getText();
+                String newMajor = majorField.getText();
                 String newPassword = passwordField.getText();
                 String newPhone = phoneField.getText();
                 String newScore = phoneField.getText();
                 String newOffice = officeField.getText();
+                if(!newName.equals(teacher.getName())){
+                    teacherdb.update("teacher", teacher.getNumberString(), "name",newName);
+                }
+                if(!newMajor.equals(teacher.getSubject())){
+                    teacherdb.update("teacher", teacher.getNumberString(), "研究方向",newMajor);
+                }
                 if (!newPassword.equals(teacher.getPassword())) {
-                    teacherdb.update("student", teacher.getNumberString(), "password",newPassword);
+                    teacherdb.update("teacher", teacher.getNumberString(), "password",newPassword);
                 }
                 if (!newPhone.equals(teacher.getPhone())) {
-                    teacherdb.update("student", teacher.getNumberString(), "联系电话",newPhone);
+                    teacherdb.update("teacher", teacher.getNumberString(), "联系电话",newPhone);
                 }
                 if (!newScore.equals(teacher.getProfessional())) {
-                    teacherdb.update("student", teacher.getNumberString(), "职称",newScore);
+                    teacherdb.update("teacher", teacher.getNumberString(), "职称",newScore);
                 }
                 if (!newOffice.equals(teacher.getAddress())) {
-                    teacherdb.update("student", teacher.getNumberString(), "办公地址",newOffice);
+                    teacherdb.update("teacher", teacher.getNumberString(), "办公地址",newOffice);
                 }
 
 

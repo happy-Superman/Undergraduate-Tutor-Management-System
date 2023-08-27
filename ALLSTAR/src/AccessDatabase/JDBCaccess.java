@@ -3,6 +3,7 @@ package AccessDatabase;
 
 import java.sql.*;
 import abstracts.People;
+import people.Admin;
 import people.Student;
 import people.Teacher;
 
@@ -29,10 +30,6 @@ public class JDBCaccess
     }
 
 
-//    public int findState(){
-//
-//    }
-
     public People found(String type,String message,String contect)
     {
         try
@@ -55,10 +52,11 @@ public class JDBCaccess
                     teacher.setProfessional(rs.getString("职称"));
                     teacher.setNow_studentNumber(rs.getInt("已有学生数量"));
                     teacher.setMax_studentNumber(rs.getInt("最高学生数量"));
+                    teacher.setMessageText(rs.getString("通知"));
                 }
                 return teacher;
             }
-            else
+            else if(type.equals("student"))
             {
                 Student student = null;
                 while(rs.next())
@@ -76,6 +74,17 @@ public class JDBCaccess
                     student.setExperience(rs.getString("获奖经历"));
                 }
                 return student;
+            }
+            else{
+                Admin admin = null;
+                while(rs.next())
+                {
+                    admin = new Admin();
+                    admin.setName(rs.getString("name"));
+                    admin.setNumberString(rs.getString("number"));
+                    admin.setPassword(rs.getString("password"));
+                }
+                return admin;
             }
         } catch (Exception e) {
             System.out.print("select * from " + type + " where " +message +"='" +contect+"'");

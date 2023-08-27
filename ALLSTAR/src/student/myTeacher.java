@@ -87,8 +87,11 @@ class myTeacher extends JFrame{
         noticeArea.setBounds(0,260,430,400);
         notice.setBounds(0,240,100,25);
 
-        //查找我的导师数据库的信息 设置到文本框中显示
+        //查找我的导师数据库的信息 设置到文本框中显示  或者是你还没有导师
         teacher = (Teacher) teacherdb.found("teacher","number",student.getPendingTutor());
+        numberField.setText(teacher.getNumberString());
+        numberField.setEditable(false);
+
         nameField.setText(teacher.getName());
         nameField.setEditable(false);
 
@@ -101,14 +104,14 @@ class myTeacher extends JFrame{
         addressField.setText(teacher.getAddress());
         addressField.setEditable(false);
 
-        contact.setText(teacher.getPhone());
+        contactField.setText(teacher.getPhone());
         contactField.setEditable(false);
 
         titleField.setText(teacher.getProfessional());
         titleField.setEditable(false);
 
-        nameField.setText(teacher.getMessageText());
-        nameField.setEditable(false);
+        noticeArea.setText(teacher.getMessageText());
+        noticeArea.setEditable(false);
 
     }
 }
